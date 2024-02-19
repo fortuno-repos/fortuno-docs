@@ -1,0 +1,24 @@
+=== Fortuno - extensible unit testing framework for Fortran ===
+
+# Executing test items
+..F
+
+# Logged event(s)
+
+Failed     [run] factorial_2
+
+-> Unsuccessful check
+Check: 1
+Msg: Test failed for demonstration purposes
+::
+Mismatching integer values
+Obtained: 2
+Expected: 3
+
+
+# Test runs
+Total:      3
+Succeeded:  2  ( 66.7%)
+Failed:     1  ( 33.3%)
+
+=== FAILED ===
