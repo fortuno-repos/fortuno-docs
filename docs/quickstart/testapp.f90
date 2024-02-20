@@ -25,7 +25,7 @@ contains
     call check(is_equal(factorial(1), 1))
   end subroutine test_factorial_1
 
-  ! Test: 2! = 2 (will fail to demonstrate the output of a failing test)
+  ! Test: 2! = 3 (will fail to demonstrate the output of a failing test)
   subroutine test_factorial_2()
     ! Failing check, you should obtain detailed info about the failure.
     call check(&
