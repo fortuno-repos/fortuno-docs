@@ -35,4 +35,5 @@ html_theme_options = {
     "use_edit_page_button": True,
     "use_download_button": False,
     "path_to_docs": "docs",
+    "navigation_with_keys": False,
 }

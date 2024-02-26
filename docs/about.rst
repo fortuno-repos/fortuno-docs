@@ -31,3 +31,6 @@ The framework supports a variety of testing styles and scenarios, including:
 Fortuno aims to enhance the quality and reliability of Fortran codebases, offering a practical tool
 for Fortran developers seeking to incoprorate unit testing practices in their software development
 lifecycle.
+
+Fortuno is an open source, community developed project. You can follow and join the development on
+the `Fortuno project <https://github.com/fortuno-repos/fortuno>`_ page on GitHub.

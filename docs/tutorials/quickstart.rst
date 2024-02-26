@@ -1,23 +1,24 @@
-**********
-Quickstart
-**********
+********************
+Fortuno in 5 minutes
+********************
+
+.. admonition:: You will learn to ...
+   :class: note
+
+   - create a minimal project with the Fortran package manager,
+   - add unit tests to the project,
+   - understand some key concepts of the testing framework.
+
 
 Before jumping in
 =================
 
-To begin this instant tutorial on Fortuno, ensure you have the latest version of the `Fortran
-package manager (fpm) <https://fpm.fortran-lang.org/>`_ and a Fortran compiler that implements the
-Fortran 2018 standard. Fortuno operates smoothly with both the `Intel Fortran Compiler
-<https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html>`_ (requiring the
-oneAPI Base Toolkit and the HPC Toolkit) and the `NAG Fortran Compiler
-<https://nag.com/fortran-compiler/>`_. However, it can not be built with the GNU Fortran Compiler
-(as of version 13.2) due to compiler bugs. For the latest compiler compatibility list, refer to the
-`Fortuno README <https://github.com/fortuno-repos/fortuno/blob/main/README.rst>`_.
-
-In order to ensure, that fpm picks the right compiler on your system, set the ``FPM_FC`` environment
-variable in your shell accordingly. For example, if you use the Intel compiler, issue::
-
-  export FPM_FC=ifx
+To begin this quickstart tutorial on Fortuno, ensure to have a recent version of the `Fortran
+package manager (fpm) <https://fpm.fortran-lang.org/>`_ (version 0.10 or newer) and a Fortran
+compiler that implements the Fortran 2018 standard. Fortuno operates smoothly with recent versions
+of several popular Fortran compilers, but older Fortran compilers are known to fail to build it.
+Please check the minimal compiler versions in the `Fortuno readme
+<https://github.com/fortuno-repos/fortuno?tab=readme-ov-file#known-issues>`_.
 
 
 Getting comfortable
@@ -43,23 +44,24 @@ development dependency:
 
 We develop the first version of our library by adapting ``src/mylib.f90`` as follows:
 
-.. literalinclude:: mylib.f90
+.. literalinclude:: quickstart.data/mylib.f90
    :caption: src/mylib.f90
    :language: fortran
 
 The main executable of our project should just print out the factorial for three specific values, so
 that we can check whether our ``factorial()`` function works as expected:
 
-.. literalinclude:: main.f90
+.. literalinclude:: quickstart.data/main.f90
    :caption: app/main.f90
    :language: fortran
 
 Now, let's automatize the testing procedure. We will write three unit tests, which check the
 factorial function for the specific input values 0, 1 and 2. The last test should intentionally fail
-to demonstrate the error reporting. We modify the content of ``test/check.f90`` as follows:
+to demonstrate the error reporting. Rename the file ``test/check.f90`` into ``test/testapp.f90`` and
+modify the content as follows:
 
-.. literalinclude:: testapp.f90
-   :caption: test/check.f90
+.. literalinclude:: quickstart.data/testapp.f90
+   :caption: test/testapp.f90
    :language: fortran
 
 Let's build our library and run the units tests by issuing
@@ -71,7 +73,7 @@ Let's build our library and run the units tests by issuing
 in the main project folder. The expected output will show two successful tests and one failure,
 providing detailed information on the failed test.
 
-.. literalinclude:: testapp.out
+.. literalinclude:: quickstart.data/testapp.out
    :caption: Output of the "fpm test" command
    :language: output
 
@@ -99,7 +101,7 @@ MPI-parallelized or coarray-parallelized, you need to use different versions of 
 
 In order to write our unit test app, we import the following objects:
 
-.. literalinclude:: testapp.f90
+.. literalinclude:: quickstart.data/testapp.f90
    :lines: 4-5
    :language: fortran
 
@@ -119,7 +121,7 @@ In order to write our unit test app, we import the following objects:
 The actual program is pretty simple, we just execute the serial command line app with all the tests
 we have written.
 
-.. literalinclude:: testapp.f90
+.. literalinclude:: quickstart.data/testapp.f90
    :lines: 8-14
    :language: fortran
 
@@ -133,7 +135,7 @@ For creating the individual test items, we employ the ``serial_test_case_item()`
 its local abbreviated name ``test()``). In each invocation, we provide a distinctive name for the
 test and specify the subroutine that should be executed when the test is run.
 
-.. literalinclude:: testapp.f90
+.. literalinclude:: quickstart.data/testapp.f90
    :lines: 18-34
    :language: fortran
 
