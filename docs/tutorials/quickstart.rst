@@ -18,7 +18,7 @@ package manager (fpm) <https://fpm.fortran-lang.org/>`_ (version 0.10 or newer) 
 compiler that implements the Fortran 2018 standard. Fortuno operates smoothly with recent versions
 of several popular Fortran compilers, but older Fortran compilers are known to fail to build it.
 Please check the minimal compiler versions in the `Fortuno readme
-<https://github.com/fortuno-repos/fortuno?tab=readme-ov-file#known-issues>`_.
+<https://github.com/fortuno-repos/fortuno?tab=readme-ov-file#compiler-compatibility>`_.
 
 
 Getting comfortable
@@ -98,8 +98,10 @@ Fortuno is built around the following key concepts:
 
 Depending, whether the routines you test are serial (eventually with OpenMP-parallelization),
 MPI-parallelized or coarray-parallelized, you need to use different versions of these objects.
+Fortuno offers for all these three cases a special interface. In our case, we used the serial
+interface.
 
-In order to write our unit test app, we import the following objects:
+We imported the following objects:
 
 .. literalinclude:: quickstart.data/testapp.f90
    :lines: 4-5
@@ -111,29 +113,29 @@ In order to write our unit test app, we import the following objects:
 * ``is_equal``: Function to check the equality of two objects returning detailed information about
   the check.
 
-* ``serial_case_item``: Function returing a wrapped test case object for serial tests. The
-  ``_item`` suffix indicates a wrapper allowing to use the test case object as an item (element) of
-  an array. We have introduced the abbreviation ``test`` for this rather longish name.
+* ``serial_case_item``: Function returing a wrapped test case object for serial tests. The ``_item``
+  suffix indicates a wrapper allowing to use the test case object as an item (an element) of an
+  array. We have introduced the abbreviation ``test`` for this rather longish name.
 
-* ``serial_check``: Subroutine for registering the result of actual checks in serial tests,
+* ``serial_check``: Subroutine for registering the result of an actual check in serial tests,
   abbreviated here as ``check``.
 
-The actual program is pretty simple, we just execute the serial command line app with all the tests
+The actual program is pretty simple, we just executed the serial command line app with all the tests
 we have written.
 
 .. literalinclude:: quickstart.data/testapp.f90
    :lines: 8-14
    :language: fortran
 
-We utilize the ``execute_serial_cmd_app()`` subroutine, feeding it with an array of test items
-through the ``testitems`` parameter. You shouldn't add any code after this call, as it does not
+We utilized the ``execute_serial_cmd_app()`` subroutine, feeding it with an array of test items
+through the ``testitems`` parameter. You shouldn't add any code after this call, as it would not
 return. Once ``execute_serial_cmd_app()`` completes its task, it halts the code and communicates the
 result to the operating system via an exit code—0 if all tests pass, or a positive integer to
 indicate failures.
 
-For creating the individual test items, we employ the ``serial_test_case_item()`` function (using
-its local abbreviated name ``test()``). In each invocation, we provide a distinctive name for the
-test and specify the subroutine that should be executed when the test is run.
+For creating the individual test items, we employed the ``serial_test_case_item()`` function (using
+its local abbreviated name ``test()``). In each invocation, we provided a distinctive name for the
+test and specified the subroutine that should be executed when the test is run.
 
 .. literalinclude:: quickstart.data/testapp.f90
    :lines: 18-34

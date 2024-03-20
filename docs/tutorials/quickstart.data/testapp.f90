@@ -1,8 +1,8 @@
 !> Test app driving Fortuno unit tests.
 program testapp
   use mylib, only : factorial
-  use fortuno, only : execute_serial_cmd_app, is_equal, test => serial_case_item,&
-      check => serial_check
+  use fortuno_serial, only : execute_serial_cmd_app, is_equal, test => serial_case_item,&
+      & check => serial_check
   implicit none
 
   call execute_serial_cmd_app(&
@@ -29,8 +29,8 @@ contains
   subroutine test_factorial_2()
     ! Failing check, you should obtain detailed info about the failure.
     call check(&
-        is_equal(factorial(2), 3),&
-        msg="Test failed for demonstration purposes"&
+        & is_equal(factorial(2), 3),&
+        & msg="Test failed for demonstration purposes"&
     )
   end subroutine test_factorial_2
 
