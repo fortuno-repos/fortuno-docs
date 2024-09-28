@@ -39,7 +39,7 @@ development dependency:
 .. code-block:: toml
 
    [dev-dependencies]
-   fortuno = { git = "https://github.com/fortuno-repos/fortuno" }
+   fortuno = { git = "https://github.com/fortuno-repos/fortuno-fpm-serial.git" }
 
 
 We develop the first version of our library by adapting ``src/mylib.f90`` as follows:
@@ -86,12 +86,13 @@ Diving deeper
 
 Fortuno is built around the following key concepts:
 
-* **Test cases** (often referred as tests): Represent individual unit tests and contain the code
-  to execute, when the test is run.
+* **Test cases** (often referred as tests): Represent individual named unit tests and contain the
+  code to execute, when the test is run.
 
-* **Test suites** (not shown in the example above): Containers for structuring your tests. They
-  might contain test cases and further test suites (up to arbitrary nesting level). Their
-  initialization (set-up) and finalization (tear-down) is customizable.
+* **Test suites** (not shown in the example above): Represent named test containers for structuring
+  your tests. They might contain test cases and further test suites (up to arbitrary nesting level).
+  Their initialization (set-up) and finalization (tear-down) is customizable and they might provide
+  data for the test cases and test suites they contain.
 
 * **Test apps**: driver programs responsible for setting up and tearing down the test suites and
   running the tests.
@@ -101,14 +102,19 @@ MPI-parallelized or coarray-parallelized, you need to use different versions of 
 Fortuno offers for all these three cases a special interface. In our case, we used the serial
 interface.
 
-We imported the following objects:
+Additionally, Fortuno uses an unnamed container for tests and tests suites:
+
+* **Test lists**: Collect various test cases and test suites.
+
+It is good practice to separate the unit tests from the driver program. We have therefore defined
+the module containing the unit tests and the function ``tests()`` returning the list of the unit
+tests the module wants to expose.
+
+In the test module, we have imported following objects:
 
 .. literalinclude:: quickstart.data/testapp.f90
-   :lines: 4-5
+   :lines: 4
    :language: fortran
-
-* ``execute_serial_cmd_app``: Convenience function setting up and executing the serial version of
-  the command line test app.
 
 * ``is_equal``: Function to check the equality of two objects returning detailed information about
   the check.
@@ -120,25 +126,23 @@ We imported the following objects:
 * ``serial_check``: Subroutine for registering the result of an actual check in serial tests,
   abbreviated here as ``check``.
 
-The actual program is pretty simple, we just executed the serial command line app with all the tests
-we have written.
+* ``test_list``: Type to use for collecting the tests.
+
+The function ``tests()`` is pretty simple, we just return a ``test_list`` instance containing all
+the tests we wish to export from this module.
 
 .. literalinclude:: quickstart.data/testapp.f90
-   :lines: 8-14
+   :lines: 9-18
    :language: fortran
-
-We utilized the ``execute_serial_cmd_app()`` subroutine, feeding it with an array of test items
-through the ``testitems`` parameter. You shouldn't add any code after this call, as it would not
-return. Once ``execute_serial_cmd_app()`` completes its task, it halts the code and communicates the
-result to the operating system via an exit code—0 if all tests pass, or a positive integer to
-indicate failures.
 
 For creating the individual test items, we employed the ``serial_test_case_item()`` function (using
 its local abbreviated name ``test()``). In each invocation, we provided a distinctive name for the
 test and specified the subroutine that should be executed when the test is run.
 
+Then the unit tests were defined in form of subroutines:
+
 .. literalinclude:: quickstart.data/testapp.f90
-   :lines: 18-34
+   :lines: 20-37
    :language: fortran
 
 Our (rather simple) test subroutines need no arguments, they interact with the testing framework by
@@ -148,3 +152,16 @@ either a logical expression—for instance, ``factorial(0) == 1``—or a unique 
 case of a failure. The ``check()`` call registers the verification outcome in the framework,
 including any failure specifics. A test is deemed successful if no ``check()`` calls with failing
 (e.g. logically false) argument had been triggered during the run.
+
+The actual program driver program is trivial, we just executed the serial command line app with all
+the tests we have written.
+
+.. literalinclude:: quickstart.data/testapp.f90
+   :lines: 42-50
+   :language: fortran
+
+We utilized the ``execute_serial_cmd_app()`` subroutine, feeding it with the list of test items
+returned by the ``tests()`` function of the test module. You shouldn't add any code after this call,
+as it would not return. Once ``execute_serial_cmd_app()`` completes its task, it halts the code and
+communicates the result to the operating system via an exit code—0 if all tests pass, or a positive
+integer to indicate failures.
