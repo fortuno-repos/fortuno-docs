@@ -10,10 +10,9 @@ Failed     [run] factorial_2
 -> Unsuccessful check
 Check: 1
 Msg: Test failed for demonstration purposes
-::
-Mismatching integer values
-Obtained: 2
-Expected: 3
+Failure: mismatching integer values
+Value1: 2
+Value2: 3
 
 
 # Test runs

@@ -7,7 +7,7 @@ Fortuno in 5 minutes
 
    - create a minimal project with the Fortran package manager,
    - add unit tests to the project,
-   - understand some key concepts of the testing framework.
+   - understand some key concepts of the Fortuno unit-testing framework.
 
 
 Before jumping in
@@ -94,7 +94,7 @@ Fortuno is built around the following key concepts:
   Their initialization (set-up) and finalization (tear-down) is customizable and they might provide
   data for the test cases and test suites they contain.
 
-* **Test apps**: driver programs responsible for setting up and tearing down the test suites and
+* **Test apps**: Driver programs responsible for setting up and tearing down the test suites and
   running the tests.
 
 Depending, whether the routines you test are serial (eventually with OpenMP-parallelization),
