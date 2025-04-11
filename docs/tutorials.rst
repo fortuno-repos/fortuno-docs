@@ -10,4 +10,6 @@ the best place to start if you are new to Fortuno.
 .. toctree::
    :maxdepth: 1
 
-   quickstart.rst
+   tutorials/quickstart-fpm.rst
+   tutorials/quickstart-cmake.rst
+   tutorials/quickstart-meson.rst

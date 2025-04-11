@@ -1,0 +1,28 @@
+1: === Fortuno - flextensible unit testing framework for Fortran ===
+1: 
+1: # Executing test items
+1: ..F
+1: 
+1: # Logged event(s)
+1: 
+1: Failed     [run] factorial_2
+1: 
+1: -> Unsuccessful check
+1: Check: 1
+1: Msg: Test failed for demonstration purposes
+1: Failure: mismatching integer values
+1: Value1: 2
+1: Value2: 3
+1: 
+1: 
+1: # Test runs
+1: Total:      3
+1: Succeeded:  2  ( 66.7%)
+1: Failed:     1  ( 33.3%)
+1: 
+1: === FAILED ===
+1/1 Test #1: testapp ..........................***Failed    0.00 sec
+
+0% tests passed, 1 tests failed out of 1
+
+Total Test time (real) =   0.01 sec

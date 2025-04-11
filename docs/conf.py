@@ -7,7 +7,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Fortuno'
-copyright = '2024, Fortuno documentation authors'
+copyright = '2025, Fortuno documentation authors'
 author = 'Fortuno authors'
 
 # -- General configuration ---------------------------------------------------

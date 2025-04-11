@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.22)
+
+project(mylib VERSION 0.1.0 LANGUAGES Fortran)
+
+include(FetchContent)
+FetchContent_Declare(
+  Fortuno
+  GIT_REPOSITORY "https://github.com/fortuno-repos/fortuno.git"
+  GIT_TAG "v0.1.0"
+  FIND_PACKAGE_ARGS
+)
+FetchContent_MakeAvailable(Fortuno)
+
+add_library(mylib src/mylib.f90)
+
+add_executable(mylib_app app/main.f90)
+target_link_libraries(mylib_app PRIVATE mylib)
+
+add_executable(testapp test/testapp.f90)
+target_link_libraries(testapp PRIVATE mylib Fortuno::fortuno_serial)
+
+enable_testing()
+add_test(NAME testapp COMMAND testapp)

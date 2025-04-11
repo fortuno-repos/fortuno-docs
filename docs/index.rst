@@ -6,4 +6,6 @@ Fortuno unit testing framework
    :maxdepth: 2
 
    about
-   tutorials/index
+   tutorials
+   howtos
+   understanding

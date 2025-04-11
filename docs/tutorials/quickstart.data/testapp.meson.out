@@ -1,0 +1,37 @@
+=== Fortuno - flextensible unit testing framework for Fortran ===
+
+# Executing test items
+..F
+
+# Logged event(s)
+
+Failed     [run] factorial_2
+
+-> Unsuccessful check
+Check: 1
+Msg: Test failed for demonstration purposes
+Failure: mismatching integer values
+Value1: 2
+Value2: 3
+
+
+# Test runs
+Total:      3
+Succeeded:  2  ( 66.7%)
+Failed:     1  ( 33.3%)
+
+=== FAILED ===
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+1/1 testapp FAIL            0.01s   exit status 1
+
+
+Summary of Failures:
+
+1/1 testapp FAIL            0.01s   exit status 1
+
+Ok:                 0   
+Expected Fail:      0   
+Fail:               1   
+Unexpected Pass:    0   
+Skipped:            0   
+Timeout:            0   
